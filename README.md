@@ -14,6 +14,10 @@
 - create sign up user account
 - implement sign in suser api
 - created reduc store with usserSslice
+- implemented SignOut
+- update profile api call
+- fetch movies from TMDB
+
  
 # Features
 - Logon/ sign up

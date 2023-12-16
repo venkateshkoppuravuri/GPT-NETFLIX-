@@ -7,9 +7,9 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/Firebase";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import { NETFLIX_BACKGROUND_IMAGE } from "../utils/constants";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
@@ -19,7 +19,6 @@ const Login = () => {
   const password = useRef(null);
   const fullName = useRef(null);
 
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleButtonClick = () => {
@@ -46,7 +45,6 @@ const Login = () => {
         .then((userCredential) => {
           // Signed up
           const user = userCredential.user;
-          console.log("user", user);
           updateProfile(user, {
             displayName: fullName.current.value,
           })
@@ -57,7 +55,6 @@ const Login = () => {
               dispatch(
                 addUser({ uid: uid, emial: email, displayName: displayName })
               );
-              navigate("/browse");
             })
             .catch((error) => {
               // An error occurred
@@ -81,8 +78,6 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          console.log("user", user);
-          navigate("/browse");
           // ...
         })
         .catch((error) => {
@@ -99,10 +94,7 @@ const Login = () => {
     <div>
       <Header />
       <div className="absolute">
-        <img
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/b4c7f092-0488-48b7-854d-ca055a84fb4f/f701e918-50a2-4122-96ac-206fd8110fd1/GB-en-20231204-popsignuptwoweeks-perspective_alpha_website_small.jpg"
-          alt="back-ground"
-        />
+        <img src={NETFLIX_BACKGROUND_IMAGE} alt="back-ground" />
       </div>
       <form
         onSubmit={(e) => {
